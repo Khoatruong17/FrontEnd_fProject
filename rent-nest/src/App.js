@@ -1,31 +1,17 @@
-// src/App.js
-
-import React, { useEffect, useState } from 'react';
-import api from './services/api';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login.js';
+import Register from './pages/Register.js';
+import AdminDashboard from './pages/AdminDashboard.js';
 
 function App() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    api.get('/') // Thay thế '/endpoint' bằng endpoint API của bạn
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error("Có lỗi xảy ra khi gọi API:", error);
-      });
-  }, []);
-
-  console.log(data)
   return (
-    <div>
-      <h1>Dữ liệu từ API</h1>
-      <ul>
-        {data.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
